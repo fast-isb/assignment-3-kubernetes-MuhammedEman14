@@ -1,22 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend
+  name: episode-01
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: backend
+      app: episode-01
   template:
     metadata:
       labels:
-        app: backend
+        app: episode-01
     spec:
       containers:
       - name: backend
         image: back
         ports:
         - containerPort: 3000
+      - name: frontend
+        image: front
+        ports:
+        - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
@@ -26,6 +30,20 @@ spec:
   type: NodePort
   ports:
     - port: 3000
+      targetPort: 3000
       nodePort: 30001
   selector:
-    app: backend
+    app: episode-01
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30002
+  selector:
+    app: episode-01
