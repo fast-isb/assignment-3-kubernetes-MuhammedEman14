@@ -14,11 +14,11 @@ spec:
     spec:
       containers:
       - name: backend
-        image: backen
+        image: muhammedeman862/backen
         ports:
         - containerPort: 3000
       - name: frontend
-        image: fronten
+        image: muhammedeman862/fronten
         ports:
         - containerPort: 80
 ---
